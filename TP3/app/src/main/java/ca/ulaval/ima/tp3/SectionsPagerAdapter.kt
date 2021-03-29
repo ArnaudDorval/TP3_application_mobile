@@ -4,7 +4,8 @@ import android.content.Context
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import ca.ulaval.ima.tp3.R
+import ca.ulaval.ima.tp3.ui.Fragment1
+import ca.ulaval.ima.tp3.ui.Fragment2
 
 private val TAB_TITLES = arrayOf(
         R.string.tab_text_1,

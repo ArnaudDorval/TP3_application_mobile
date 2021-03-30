@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:scrollbars="vertical"
 
-    tools:context=".DescriptionActivity">
+    tools:context=".MainActivityDescription">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -15,7 +15,7 @@
 
 
         <ImageView
-            android:id="@+id/imageViewCar"
+            android:id="@+id/imageViewVoiture"
             android:layout_width="match_parent"
             android:layout_height="202dp"
             app:layout_constraintTop_toTopOf="parent"
@@ -26,7 +26,7 @@
         <View
             android:id="@+id/divider"
             android:layout_width="match_parent"
-            app:layout_constraintTop_toBottomOf="@id/imageViewCar"
+            app:layout_constraintTop_toBottomOf="@id/imageViewVoiture"
             android:layout_height="1dp"
             android:background="?android:attr/listDivider" />
 
@@ -39,7 +39,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textTiltleSection1"
+                android:id="@+id/textViewTitleSectionA"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="30dp"

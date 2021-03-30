@@ -4,12 +4,15 @@ import android.content.Context
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
+import ca.ulaval.ima.tp3.ui.Formulaire.FragmentFormulaire
 import ca.ulaval.ima.tp3.ui.Fragment1
 import ca.ulaval.ima.tp3.ui.Fragment2
+import ca.ulaval.ima.tp3.ui.ItemList.FragmentItemList
 
 private val TAB_TITLES = arrayOf(
-        R.string.tab_text_1,
-        R.string.tab_text_2
+        "OFFRES",
+        "VENDRE",
+        "MES ANNONCES"
 )
 
 class SectionsPagerAdapter(private val context: Context, fm: FragmentManager)
@@ -18,18 +21,20 @@ class SectionsPagerAdapter(private val context: Context, fm: FragmentManager)
     override fun getItem(position: Int): Fragment {
         lateinit var itemFragment:Fragment
         when(position){
-            0 -> itemFragment = Fragment1()
-            1 -> itemFragment = Fragment2()
+            0 -> itemFragment = FragmentItemList()
+            1 -> itemFragment = FragmentFormulaire()
+            2 -> itemFragment = Fragment2()
         }
         return itemFragment
     }
 
     override fun getPageTitle(position: Int): CharSequence? {
-        return context.resources.getString(TAB_TITLES[position])
+        return TAB_TITLES[position]
+        // return context.resources.getString(TAB_TITLES[position])
     }
 
     override fun getCount(): Int {
         // Show 2 total pages.
-        return 2
+        return TAB_TITLES.count()
     }
 }

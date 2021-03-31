@@ -2,6 +2,7 @@ package ca.ulaval.ima.tp3.networking
 
 import ca.ulaval.ima.tp3.BuildConfig
 import ca.ulaval.ima.tp3.model.*
+
 import com.google.gson.annotations.SerializedName
 import okhttp3.MultipartBody
 import retrofit2.Call
@@ -12,14 +13,19 @@ interface Tp3API {
 
     companion object{
         const val API_V1 = "/api/v1/"
-        const val BASE_URL: String = BuildConfig.BASE_URL
+        const val BASE_URL: String = "https://tp3.infomobile.app"
+        //const val BASE_URL: String = "https://kungry.ca"
     }
+    ///https://tp3.infomobile.app/api/v1/brand/
+
+    @GET(API_V1 + "restaurant/")
+    fun listRestaurants(): Call<ContentResponse<PaginatedResultSerializer<Restaurant>>>
 
     @GET(API_V1 + "brand/")
-    fun listBrand(): Call<ContentResponse<PaginatedResultSerializer<Brand>>>
+    fun listBrand(): Call<ContentResponse<List<Brand>>>
 
-    @GET(API_V1 + "brand/{rest_id}/")
-    fun listBrandModels(@Path("rest_id") restaurant_id: Int): Call<ContentResponse<Brand>>
+    @GET(API_V1 + "brand/{rest_id}/models")
+    fun listBrandModels(@Path("rest_id") restaurant_id: Int): Call<ContentResponse<List<modele>>>
 
     @GET(API_V1 + "model/")
     fun listModele(): Call<ContentResponse<PaginatedResultSerializer<modele>>>

@@ -1,6 +1,7 @@
 package ca.ulaval.ima.demo.demoretrofit.networking
 
-/**
+
+import ca.ulaval.ima.tp3.networking.Tp3API
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -11,7 +12,7 @@ object NetworkCenter {
     private val client = OkHttpClient.Builder().build()
 
     private val retrofit = Retrofit.Builder()
-        .baseUrl(KungryAPI.BASE_URL)
+        .baseUrl(Tp3API.BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())
         .client(client)
         .build()
@@ -23,4 +24,4 @@ object NetworkCenter {
     init {
 
     }
-}*/
+}

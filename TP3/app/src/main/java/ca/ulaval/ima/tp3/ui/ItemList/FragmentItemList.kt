@@ -26,6 +26,8 @@ import android.provider.MediaStore
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -38,16 +40,34 @@ class FragmentItemList : Fragment() {
 
     val tp3NetworkCenter = NetworkCenter.buildService(Tp3API::class.java)
 
+    private lateinit var mRecyclerView: RecyclerView
+    private lateinit var adapter: RecyclerViewBrandAdapter
+
+    var brandList: List<Brand> = emptyList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_item_list, container, false)
+
+        val root = inflater.inflate(R.layout.fragment_item_list, container, false)
+
+        mRecyclerView = root.findViewById(R.id.recycler_view)
+        val tContext = requireContext();
+        mRecyclerView.layoutManager = LinearLayoutManager(tContext)
+        getListOfBrands();
+
+        adapter = RecyclerViewBrandAdapter(brandList)
+        adapter.setOnCountryClickListener {
+            Toast.makeText(tContext, it.name, Toast.LENGTH_LONG).show()
+        }
+        mRecyclerView.adapter = adapter
+
+        return root
+
         //getListOfBrands();
     }
 
@@ -61,12 +81,14 @@ class FragmentItemList : Fragment() {
                 Log.d("Test", response.body()?.meta.toString())
 
                 response.body()?.content?.let {
+                    brandList = it
                     for (brand in it) {
                         Log.d(
                             "Test",
                             "Got Brand ${brand.name} with id ${brand.id}"
                         )
                     }
+
                 }
             }
 
@@ -78,7 +100,6 @@ class FragmentItemList : Fragment() {
             }
 
         }
-
         )
     }
 }

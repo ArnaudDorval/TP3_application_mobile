@@ -43,7 +43,7 @@ class FragmentItemList : Fragment() {
     private lateinit var mRecyclerView: RecyclerView
     private lateinit var adapter: RecyclerViewBrandAdapter
 
-    var brandList: List<Brand> = emptyList()
+    private var brandList: List<Brand> = emptyList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,26 +52,19 @@ class FragmentItemList : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-
         val root = inflater.inflate(R.layout.fragment_item_list, container, false)
-
         mRecyclerView = root.findViewById(R.id.recycler_view)
-        val tContext = requireContext();
-        mRecyclerView.layoutManager = LinearLayoutManager(tContext)
         getListOfBrands();
-
-        adapter = RecyclerViewBrandAdapter(brandList)
-        adapter.setOnCountryClickListener {
-            Toast.makeText(tContext, it.name, Toast.LENGTH_LONG).show()
-        }
-        mRecyclerView.adapter = adapter
+        //getListOfBrands();
+        val tContext = requireContext();
+        mRecyclerView.layoutManager = LinearLayoutManager(tContext);
 
         return root
 
         //getListOfBrands();
     }
 
-    fun getListOfBrands(){
+    private fun getListOfBrands(){
         tp3NetworkCenter.listBrand().enqueue(object :
             Callback<Tp3API.ContentResponse<List<Brand>>> {
             override fun onResponse(
@@ -82,6 +75,12 @@ class FragmentItemList : Fragment() {
 
                 response.body()?.content?.let {
                     brandList = it
+                    val tContext = requireContext();
+                    adapter = RecyclerViewBrandAdapter(brandList)
+                    mRecyclerView.adapter = adapter
+                    adapter.setOnCountryClickListener {
+                        Toast.makeText(tContext, it.name, Toast.LENGTH_LONG).show()
+                    }
                     for (brand in it) {
                         Log.d(
                             "Test",

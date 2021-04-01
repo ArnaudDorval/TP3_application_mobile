@@ -37,9 +37,9 @@ class Fragment2 : Fragment() {
         // Inflate the layout for this fragment
         val root = inflater.inflate(R.layout.fragment_2, container, false)
         val buttonInternet = root.findViewById<Button>(R.id.button_test)
-
+        getListOfBrands();
         buttonInternet.setOnClickListener(View.OnClickListener {
-            getListOfBrands();
+
             //getListOfRestaurants();
             //Log.d("test", "fkn here");
             getbrandModele(1)

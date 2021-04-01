@@ -28,16 +28,20 @@ interface Tp3API {
     fun listBrandModels(@Path("rest_id") restaurant_id: Int): Call<ContentResponse<List<modele>>>
 
     @GET(API_V1 + "model/")
-    fun listModele(): Call<ContentResponse<PaginatedResultSerializer<modele>>>
+    fun listModele(): Call<ContentResponse<List<modele>>>
 
     @GET(API_V1 + "offer/")
-    fun listOffer(): Call<ContentResponse<PaginatedResultSerializer<offer>>>
+    fun listOffer(): Call<ContentResponse<List<offer>>>
+
+    //@GET(API_V1 + "offer/search/")
+    //fun listOfferLight(@Query("model")modelId :Int, @Query("brand") brandId: Int): Call<ContentResponse<List<OfferLightOutput>>>
+
 
     @GET(API_V1 + "offer/mine/")
-    fun myOffer(): Call<ContentResponse<PaginatedResultSerializer<offer>>>
+    fun myOffer(): Call<ContentResponse<List<offer>>>
 
     @GET(API_V1 + "account/me/")
-    fun myAccount(): Call<ContentResponse<PaginatedResultSerializer<Account>>>
+    fun myAccount(): Call<ContentResponse<List<Account>>>
 
 
     @Headers("Authorization: Bearer XXXXXX")

@@ -28,6 +28,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import androidx.recyclerview.widget.RecyclerView
 import ca.ulaval.ima.tp3.model.*
+import com.squareup.picasso.Picasso
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -62,16 +63,10 @@ class RecyclerViewCarAdapter(private val carList: List<OfferLightOutput>) : Recy
         if(car.model != null){
             holder.mCarName.text = car.model.brand.name + " " +car.model.name
             holder.mCarAnnee.text = car.year.toString()
-            holder.mCarKilo.text = car.kilometers.toString()
-            holder.mCarPrice.text = car.price.toString()
+            holder.mCarKilo.text = car.kilometers.toString() + " Km"
+            holder.mCarPrice.text = car.price.toString() + " $"
 
-            val imgFilePath = car.image
-            try {
-                val bitmap = BitmapFactory.decodeStream(holder.mView.context.resources.assets.open(imgFilePath))
-                holder.mFlagImageView.setImageBitmap(bitmap)
-            } catch (e: IOException) {
-                e.printStackTrace()
-            }
+            Picasso.get().load(car.image).into(holder.mCarImageView)
 
         }else {
             holder.mCarName.text = "test"
@@ -93,7 +88,7 @@ class RecyclerViewCarAdapter(private val carList: List<OfferLightOutput>) : Recy
         val mCarAnnee: TextView = mView.findViewById(R.id.textViewAnnee)
         val mCarKilo: TextView = mView.findViewById(R.id.textViewKilo)
         val mCarPrice: TextView = mView.findViewById(R.id.textViewPrice)
-        val mFlagImageView: ImageView = mView.findViewById(R.id.imageViewVoiture)
+        val mCarImageView: ImageView = mView.findViewById(R.id.imageViewVoiture)
         var mItem: OfferLightOutput? = null
 
     }

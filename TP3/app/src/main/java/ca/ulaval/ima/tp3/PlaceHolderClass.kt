@@ -3,12 +3,18 @@ import android.os.Parcel
 import android.os.Parcelable
 import java.util.*
 
-class PlaceHolderClass (val ID: Int?) : Parcelable {
-    constructor(parcel: Parcel) : this(parcel.readValue(Int::class.java.classLoader) as? Int) {
+class PlaceHolderClass (val brandID: Int?, val modelID: Int?, val recyclerTypeID: String?) : Parcelable{
+    constructor(parcel: Parcel) : this(
+        parcel.readValue(Int::class.java.classLoader) as? Int,
+        parcel.readValue(Int::class.java.classLoader) as? Int,
+        parcel.readString()
+    ) {
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeValue(ID)
+        parcel.writeValue(brandID)
+        parcel.writeValue(modelID)
+        parcel.writeString(recyclerTypeID)
     }
 
     override fun describeContents(): Int {
@@ -26,3 +32,4 @@ class PlaceHolderClass (val ID: Int?) : Parcelable {
     }
 
 }
+

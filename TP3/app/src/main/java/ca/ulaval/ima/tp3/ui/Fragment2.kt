@@ -1,5 +1,6 @@
 package ca.ulaval.ima.tp3.ui
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,10 +11,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import ca.ulaval.ima.demo.demoretrofit.networking.NetworkCenter
 import ca.ulaval.ima.tp3.R
-import ca.ulaval.ima.tp3.model.Brand
-import ca.ulaval.ima.tp3.model.PaginatedResultSerializer
-import ca.ulaval.ima.tp3.model.Restaurant
-import ca.ulaval.ima.tp3.model.modele
+import ca.ulaval.ima.tp3.model.*
 import ca.ulaval.ima.tp3.networking.Tp3API
 import org.json.JSONObject
 import retrofit2.Call
@@ -39,10 +37,10 @@ class Fragment2 : Fragment() {
         val buttonInternet = root.findViewById<Button>(R.id.button_test)
         getListOfBrands();
         buttonInternet.setOnClickListener(View.OnClickListener {
-
+            getbrandModeleCar(1,1)
             //getListOfRestaurants();
             //Log.d("test", "fkn here");
-            getbrandModele(1)
+            //getbrandModele(1)
         })
 
         return root
@@ -112,10 +110,10 @@ class Fragment2 : Fragment() {
 
     fun getbrandModele(brand_id:Int){
         tp3NetworkCenter.listBrandModels(brand_id).enqueue(object :
-            Callback<Tp3API.ContentResponse<List<modele>>> {
+            Callback<Tp3API.ContentResponse<List<Model>>> {
             override fun onResponse(
-                call: Call<Tp3API.ContentResponse<List<modele>>>,
-                response: Response<Tp3API.ContentResponse<List<modele>>>
+                call: Call<Tp3API.ContentResponse<List<Model>>>,
+                response: Response<Tp3API.ContentResponse<List<Model>>>
             ) {
                 Log.d("Test", response.body()?.meta.toString())
 
@@ -129,7 +127,34 @@ class Fragment2 : Fragment() {
                 }
             }
 
-            override fun onFailure(call: Call<Tp3API.ContentResponse<List<modele>>>, t: Throwable) {
+            override fun onFailure(call: Call<Tp3API.ContentResponse<List<Model>>>, t: Throwable) {
+                Log.d("ima-demo", "getRestaurantDetail Failure $t")
+            }
+
+        })
+    }
+
+
+    fun getbrandModeleCar(brand_id:Int, modele_id:Int){
+        tp3NetworkCenter.listOfferCar(brand_id, modele_id).enqueue(object :
+            Callback<Tp3API.ContentResponse<List<OfferLightOutput>>> {
+            override fun onResponse(
+                call: Call<Tp3API.ContentResponse<List<OfferLightOutput>>>,
+                response: Response<Tp3API.ContentResponse<List<OfferLightOutput>>>
+            ) {
+                Log.d("Test", response.body()?.meta.toString())
+
+                response.body()?.content?.let {
+                    for (car in it) {
+                        Log.d(
+                            "Test",
+                            "Got Car kilo ${car.kilometers} with year ${car.year}"
+                        )
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<Tp3API.ContentResponse<List<OfferLightOutput>>>, t: Throwable) {
                 Log.d("ima-demo", "getRestaurantDetail Failure $t")
             }
 

@@ -25,16 +25,16 @@ interface Tp3API {
     fun listBrand(): Call<ContentResponse<List<Brand>>>
 
     @GET(API_V1 + "brand/{rest_id}/models")
-    fun listBrandModels(@Path("rest_id") restaurant_id: Int): Call<ContentResponse<List<modele>>>
+    fun listBrandModels(@Path("rest_id") restaurant_id: Int): Call<ContentResponse<List<Model>>>
 
     @GET(API_V1 + "model/")
-    fun listModele(): Call<ContentResponse<List<modele>>>
+    fun listModele(): Call<ContentResponse<List<Model>>>
 
     @GET(API_V1 + "offer/")
     fun listOffer(): Call<ContentResponse<List<offer>>>
 
-    //@GET(API_V1 + "offer/search/")
-    //fun listOfferLight(@Query("model")modelId :Int, @Query("brand") brandId: Int): Call<ContentResponse<List<OfferLightOutput>>>
+    @GET(API_V1 + "offer/search/")
+    fun listOfferCar(@Query("model")modelId :Int, @Query("brand") brandId: Int): Call<ContentResponse<List<OfferLightOutput>>>
 
 
     @GET(API_V1 + "offer/mine/")

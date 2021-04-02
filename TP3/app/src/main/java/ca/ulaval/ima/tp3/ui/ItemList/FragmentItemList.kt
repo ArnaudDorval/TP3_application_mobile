@@ -83,9 +83,9 @@ class FragmentItemList : Fragment() {
                     adapter.setOnCountryClickListener {
                         Toast.makeText(tContext, it.name, Toast.LENGTH_LONG).show()
 
-                        val ID = PlaceHolderClass(1)
+                        val ID = PlaceHolderClass(it.id, 0, "Brand")
                         val intent = Intent (pContext, MainActivity2::class.java)
-                        //intent.putExtra("pID", ID);
+                        intent.putExtra("pID", ID);
                         startActivity(intent)
 
 

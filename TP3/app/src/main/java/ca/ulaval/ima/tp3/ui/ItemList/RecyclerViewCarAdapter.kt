@@ -9,8 +9,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import ca.ulaval.ima.demo.demoretrofit.networking.NetworkCenter
 import ca.ulaval.ima.tp3.R
-import ca.ulaval.ima.tp3.model.Brand
-import ca.ulaval.ima.tp3.model.PaginatedResultSerializer
 import ca.ulaval.ima.tp3.networking.Tp3API
 import retrofit2.Call
 import retrofit2.Callback
@@ -29,7 +27,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import androidx.recyclerview.widget.RecyclerView
-import ca.ulaval.ima.tp3.model.modele
+import ca.ulaval.ima.tp3.model.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -39,14 +37,14 @@ import java.io.File
 import java.io.IOException
 
 
-class RecyclerViewModeleAdapter(private val modeleList: List<modele>) : RecyclerView.Adapter<RecyclerViewModeleAdapter.ViewHolder>() {
-    lateinit var onItemClickListener: ((modele) -> Unit)
+class RecyclerViewCarAdapter(private val carList: List<OfferLightOutput>) : RecyclerView.Adapter<RecyclerViewCarAdapter.ViewHolder>() {
+    lateinit var onItemClickListener: ((OfferLightOutput) -> Unit)
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
         lateinit var view: View
         when (viewType) {
-            SMALL_CELL_TYPE -> view = LayoutInflater.from(viewGroup.context).inflate(R.layout.fragment_item, viewGroup, false)
-            LARGE_CELL_TYPE -> view = LayoutInflater.from(viewGroup.context).inflate(R.layout.fragment_item, viewGroup, false)
+            SMALL_CELL_TYPE -> view = LayoutInflater.from(viewGroup.context).inflate(R.layout.fragment_offre, viewGroup, false)
+            LARGE_CELL_TYPE -> view = LayoutInflater.from(viewGroup.context).inflate(R.layout.fragment_offre, viewGroup, false)
         }
         return ViewHolder(view)
     }
@@ -54,32 +52,53 @@ class RecyclerViewModeleAdapter(private val modeleList: List<modele>) : Recycler
     override fun getItemViewType(position: Int): Int {
         // Just as an example, return 0 or 2 depending on position
         // Note that unlike in ListView adapters, types don't have to be contiguous
-        val country = modeleList[position]
+        val car = carList[position]
         return 1;
     }
 
     override fun onBindViewHolder(holder: ViewHolder, i: Int) {
-        val modele = modeleList[i]
-        holder.mItem = modele
-        holder.mModeleName.text = modele.name
+        val car = carList[i]
+        holder.mItem = car
+        if(car.model != null){
+            holder.mCarName.text = car.model.brand.name + " " +car.model.name
+            holder.mCarAnnee.text = car.year.toString()
+            holder.mCarKilo.text = car.kilometers.toString()
+            holder.mCarPrice.text = car.price.toString()
+
+            val imgFilePath = car.image
+            try {
+                val bitmap = BitmapFactory.decodeStream(holder.mView.context.resources.assets.open(imgFilePath))
+                holder.mFlagImageView.setImageBitmap(bitmap)
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+
+        }else {
+            holder.mCarName.text = "test"
+        }
+
 
         holder.mView.setOnClickListener(){
-            onItemClickListener.invoke(modele)
+            onItemClickListener.invoke(car)
         }
 
     }
 
     override fun getItemCount(): Int {
-        return modeleList.size
+        return carList.size
     }
 
     inner class ViewHolder(val mView: View) : RecyclerView.ViewHolder(mView) {
-        val mModeleName: TextView =  mView.findViewById(R.id.TextViewBrand_name)
-        var mItem: modele? = null
+        val mCarName: TextView =  mView.findViewById(R.id.textViewModele)
+        val mCarAnnee: TextView = mView.findViewById(R.id.textViewAnnee)
+        val mCarKilo: TextView = mView.findViewById(R.id.textViewKilo)
+        val mCarPrice: TextView = mView.findViewById(R.id.textViewPrice)
+        val mFlagImageView: ImageView = mView.findViewById(R.id.imageViewVoiture)
+        var mItem: OfferLightOutput? = null
 
     }
 
-    fun setOnCountryClickListener(onItemClickListener: ((modele) -> Unit)) {
+    fun setOnCountryClickListener(onItemClickListener: ((OfferLightOutput) -> Unit)) {
         this.onItemClickListener = onItemClickListener
     }
 

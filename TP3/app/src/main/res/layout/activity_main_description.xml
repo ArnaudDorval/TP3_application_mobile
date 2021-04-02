@@ -109,19 +109,19 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/textMarque"
+                        android:id="@+id/textViewBrand"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="TextView" />
 
                     <TextView
-                        android:id="@+id/textModele"
+                        android:id="@+id/textViewModel"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="TextView" />
 
                     <TextView
-                        android:id="@+id/textAnnee"
+                        android:id="@+id/textViewYear"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="TextView" />
@@ -133,13 +133,13 @@
                         android:text="TextView" />
 
                     <TextView
-                        android:id="@+id/textTrans"
+                        android:id="@+id/textViewTrans"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="TextView" />
 
                     <TextView
-                        android:id="@+id/textPrix"
+                        android:id="@+id/textViewPrix"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="TextView" />
@@ -216,19 +216,19 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/textNom"
+                        android:id="@+id/textViewName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="TextView" />
 
                     <TextView
-                        android:id="@+id/textCourriel"
+                        android:id="@+id/textViewCourriel"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="TextView" />
 
                     <TextView
-                        android:id="@+id/textProprio"
+                        android:id="@+id/textViewProprio"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="TextView" />

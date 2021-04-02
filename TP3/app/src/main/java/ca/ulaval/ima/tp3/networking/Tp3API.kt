@@ -33,6 +33,9 @@ interface Tp3API {
     @GET(API_V1 + "offer/")
     fun listOffer(): Call<ContentResponse<List<offer>>>
 
+    @GET(API_V1 + "offer/{rest_id}/details/")
+    fun ModelDescription(@Path("rest_id") restaurant_id: Int): Call<ContentResponse<OfferOutput>>
+
     @GET(API_V1 + "offer/search/")
     fun listOfferCar(@Query("model")modelId :Int, @Query("brand") brandId: Int): Call<ContentResponse<List<OfferLightOutput>>>
 

@@ -42,7 +42,7 @@ class MainActivity3 : AppCompatActivity() {
         stateID = intent.getParcelableExtra<PlaceHolderClass>("pID")!!
 
         stateID.brandID?.let { getbrandModeleCar(stateID.brandID!!,stateID.modelID!!, c) }
-        supportActionBar?.title = "toto"
+
     }
 
     override fun onOptionsItemSelected(item: MenuItem):Boolean{
@@ -66,14 +66,22 @@ class MainActivity3 : AppCompatActivity() {
                 Log.d("Test", response.body()?.meta.toString())
 
                 response.body()?.content?.let {
+
                     carList = it
 
                     adapterCar = RecyclerViewCarAdapter(carList)
                     mRecyclerView.adapter = adapterCar
                     adapterCar.setOnCountryClickListener {
                         Log.d("Test", it.model.name)
+
+                        val ID = PlaceHolderClass(it.id, it.id, "fullDescription")
+                        val intent = Intent (pContext, MainActivity4::class.java)
+                        intent.putExtra("pID", ID);
+                        startActivity(intent)
+
                     }
                     for (car in it) {
+                        supportActionBar?.title = car.model.brand.name + " " + car.model.name
                         Log.d(
                             "Test",
                             "Got Car kilo ${car.kilometers} with year ${car.year}, name ${car.model.name}"

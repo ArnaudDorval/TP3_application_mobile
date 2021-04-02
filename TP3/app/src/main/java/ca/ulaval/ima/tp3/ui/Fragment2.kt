@@ -37,7 +37,7 @@ class Fragment2 : Fragment() {
         val buttonInternet = root.findViewById<Button>(R.id.button_test)
         getListOfBrands();
         buttonInternet.setOnClickListener(View.OnClickListener {
-            getbrandModeleCar(1,1)
+            getbrandModeleCar(11,145)
             //getListOfRestaurants();
             //Log.d("test", "fkn here");
             //getbrandModele(1)

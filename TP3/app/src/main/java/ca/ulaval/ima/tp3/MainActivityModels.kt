@@ -1,5 +1,6 @@
 package ca.ulaval.ima.tp3
 
+import android.app.Activity
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
@@ -67,7 +68,11 @@ class MainActivityModels : AppCompatActivity() {
                     adapterCar.setOnCountryClickListener {
                         Log.d("Test", it.name)
 
-
+                        val returnIntent = intent
+                        returnIntent.putExtra("SecondActivity", "from second Activity")
+                        setResult(Activity.RESULT_OK, returnIntent)
+                        Log.d("TAG", "onClick: Message sent")
+                        finish()
 
                     }
                     for (car in it) {

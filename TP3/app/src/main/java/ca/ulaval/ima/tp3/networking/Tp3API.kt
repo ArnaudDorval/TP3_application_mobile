@@ -41,16 +41,23 @@ interface Tp3API {
 
 
     @GET(API_V1 + "offer/mine/")
-    fun myOffer(): Call<ContentResponse<List<offer>>>
+    fun getMyOffer( @Header("Authorization") token: String): Call<ContentResponse<List<OfferLightOutput>>>
 
     @GET(API_V1 + "account/me/")
-    fun myAccount(): Call<ContentResponse<List<Account>>>
+    fun myAccount(): Call<ContentResponse<Account>>
 
 
     @Headers("Authorization: Bearer XXXXXX")
     @Multipart
     @POST(API_V1 + "offer/{review_id}/image/")
     fun postOfferPhoto(@Path("offer") offerId: Int,@Part image:MultipartBody.Part): Call<ContentResponse<offer>>
+
+    @POST(API_V1 + "offer/add/")
+    fun postUserOffer(@Header("Authorization") token: String,@Body request: OfferInput): Call<ContentResponse<OfferOutput>>
+
+    @POST(API_V1 + "account/login/")
+    fun postUserLogin(@Body request: UserInfo): Call<ContentResponse<Token>>
+
 
     data class ContentResponse<T> (
         @SerializedName("content") val content : T,

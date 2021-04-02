@@ -1,5 +1,6 @@
 package ca.ulaval.ima.tp3.ui
 
+import android.app.AlertDialog
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
@@ -23,6 +24,8 @@ class Fragment2 : Fragment() {
 
     val tp3NetworkCenter = NetworkCenter.buildService(Tp3API::class.java)
 
+    private lateinit var token :String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -35,12 +38,24 @@ class Fragment2 : Fragment() {
         // Inflate the layout for this fragment
         val root = inflater.inflate(R.layout.fragment_2, container, false)
         val buttonInternet = root.findViewById<Button>(R.id.button_test)
-        getListOfBrands();
+
+        val loginDialog = LayoutInflater.from(this.context).inflate(R.layout.alert_login, null)
+        val alertBuilder = AlertDialog.Builder(this.context).setView(loginDialog)
+        val myAlertDialog = alertBuilder.show()
+
+        val buttonOk = loginDialog.findViewById<Button>(R.id.button_OK)
+
+        buttonOk.setOnClickListener{
+            myAlertDialog.dismiss()
+            getToken("arnaud.dorval-leblanc.1@ulaval.ca", 111155275)
+        }
+        //getListOfBrands();
         buttonInternet.setOnClickListener(View.OnClickListener {
             getbrandModeleCar(11,145)
             //getListOfRestaurants();
             //Log.d("test", "fkn here");
             //getbrandModele(1)
+
         })
 
         return root
@@ -155,6 +170,35 @@ class Fragment2 : Fragment() {
             }
 
             override fun onFailure(call: Call<Tp3API.ContentResponse<List<OfferLightOutput>>>, t: Throwable) {
+                Log.d("ima-demo", "getRestaurantDetail Failure $t")
+            }
+
+        })
+    }
+
+
+    fun getToken(email:String, numID:Int) {
+        val userInfo = UserInfo(email, numID)
+
+        tp3NetworkCenter.postUserLogin(userInfo).enqueue(object :
+            Callback<Tp3API.ContentResponse<Token>> {
+            override fun onResponse(
+                call: Call<Tp3API.ContentResponse<Token>>,
+                response: Response<Tp3API.ContentResponse<Token>>
+            ) {
+                Log.d("Test", response.body()?.meta.toString())
+
+                if(response.isSuccessful){
+                    response.body()?.content?.let {
+
+                            token = it.token
+                        Log.d("test-token", token)
+                    }
+                }
+
+            }
+
+            override fun onFailure(call: Call<Tp3API.ContentResponse<Token>>, t: Throwable) {
                 Log.d("ima-demo", "getRestaurantDetail Failure $t")
             }
 

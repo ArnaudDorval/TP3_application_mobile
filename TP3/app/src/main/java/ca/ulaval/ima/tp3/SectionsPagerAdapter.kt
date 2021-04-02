@@ -23,7 +23,7 @@ class SectionsPagerAdapter(private val context: Context, fm: FragmentManager)
         when(position){
             0 -> itemFragment = FragmentItemList()
             1 -> itemFragment = FragmentFormulaire()
-            2 -> itemFragment = Fragment2()
+            2 -> itemFragment = Fragment1()
         }
         return itemFragment
     }

@@ -6,6 +6,5 @@ data class Model(
     @SerializedName("id") val id:Int,
     @SerializedName("brand")  val brand: Brand,
     @SerializedName("name")  val name:String
-
     )
 
